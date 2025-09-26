@@ -1,4 +1,3 @@
-from django.contrib.messages.context_processors import messages
 from django.shortcuts import render, get_object_or_404
 from .models import Book, Author, Favourite
 
@@ -20,6 +19,6 @@ def authors_list(request):
 
 def add_to_favourites(request, book_id):
     required_book = Book.objects.get(id=book_id)
-    favourited_book = Favourite(book=required_book)
+    favourited_book = Favourite(book=required_book, user=request.user)
     Favourite.save(favourited_book)
     return render(request, 'favourite_added.html')
